@@ -13,8 +13,8 @@ module.exports = {
       address: 'Ho Chi Minh',
       salary: 1000000,
       position: 'Manager',
-      typeRole: 'ROLE',
-      keyRole: 'R1',
+      roleId: 'R1',
+      image:'112312312312312312312312',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
