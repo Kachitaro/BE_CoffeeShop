@@ -45,8 +45,10 @@ let deleteCRUD = async (req, res) => {};
 
 let putCRUD = async (req, res) => {
     let data = req.body;
-    await CRUDservices.updateUserInfo(data);
-    return res.send('update user info success');
+    let allUsers =  await CRUDservices.updateUser(data);
+    return res.render('displayCRUD.ejs', {
+        dataTable: allUsers
+    });
 };
 
 

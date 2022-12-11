@@ -71,24 +71,21 @@ let updateUser = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let user = await db.User.findOne({
-                where: {id: data.id},
+                where : {id: data.id},
             });
             if (user) {
-                user.name = data.name,
-                user.email = data.email,
-                user.phoneNumber = data.phoneNumber,
-                user.gender = data.gender === '1' ? true : false,
-                user.address = data.address,
-
-                await user.save();
-                resolve();
+                await user.update({
+                    name: data.name,
+                    email: data.email,
+                    phoneNumber: data.phoneNumber,
+                    address: data.address,
+                    gender: data.gender === '1' ? true : false,
+                });
+                let allUsers = await getAllUsers();
+                resolve(allUsers);
             } else {
-                resolve([]);
+                resolve('user not found');
             }
-            // await db.User.update({
-                
-
-            // });
         } catch (e) {
             reject(e);
         }

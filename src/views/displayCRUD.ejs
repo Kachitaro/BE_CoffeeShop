@@ -42,6 +42,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>gender</th>
             <th>Action</th>
         </tr>
 
@@ -50,6 +51,13 @@
                 <td><%= dataTable[i].name %></td>
                 <td><%= dataTable[i].email %></td>
                 <td><%= dataTable[i].phoneNumber %></td>
+                <td>
+                    <% if (dataTable[i].gender == 0) { %>
+                        <p>Male</p>
+                    <% } else { %>
+                        <p>Female</p>
+                    <% } %>
+                </td>
                 <td>
                     <!-- <button class="btn-edit" type="button">Edit</button>
                     <button class="btn-delete" type="button">Delete</button> -->
