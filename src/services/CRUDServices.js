@@ -1,11 +1,18 @@
-import bcrypt from 'bcryptjs';
 import db from '../models/index';
+import bcrypt from 'bcryptjs';
 
 const salt = bcrypt.genSaltSync(10);
 
 let createNewUser = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
+            let check = await checkUserEmail(data.email);
+            if (check===true) {
+                return resolve({
+                    errCode: 1,
+                    message: "Email is already exist"
+                });
+            }
             let passwordAfterHash = await hashUserPassword(data.password);
             await db.User.create({
                 name: data.name,
@@ -92,9 +99,26 @@ let updateUser = async (data) => {
     });
 };
 
+let deleteUser = async (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where : {id: userId},
+            });
+            if (user) {
+                await user.destroy();
+                resolve('delete user success');
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
 module.exports = {
     createNewUser: createNewUser,
     getAllUsers: getAllUsers,
     getUserInfoByID: getUserInfoByID,
     updateUser: updateUser,
+    deleteUser: deleteUser,
 };

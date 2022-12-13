@@ -41,7 +41,15 @@ let editCRUD = async (req, res) => {
     }
 };
 
-let deleteCRUD = async (req, res) => {};
+let deleteCRUD = async (req, res) => {
+    let userId = req.query.id;
+    if (userId) {
+        let UserData = await CRUDservices.deleteUser(userId);
+        return res.redirect('/get-crud');
+    } else {
+        return res.send('user id not found');   
+    }
+};
 
 let putCRUD = async (req, res) => {
     let data = req.body;
