@@ -4,28 +4,32 @@ import bcrypt from "bcryptjs";
 const salt = bcrypt.genSaltSync(10);
 
 let createNewUser = (data) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise (async (resolve, reject) => {
         try {
             let check = await checkUserEmail(data.email);
             if (check===true) {
-                return resolve({
+                resolve({
                     errCode: 1,
                     message: "Email is already exist"
                 });
+            } else {
+                let passwordAfterHash = await hashUserPassword(data.password);
+                await db.User.create({
+                    name: data.name,
+                    email: data.email,
+                    password: passwordAfterHash,
+                    gender: data.gender === '1' ? true : false,
+                    phoneNumber: data.phoneNumber,
+                    address: data.address,
+                    salary: data.salary,
+                    position: data.position,
+                    roleId: data.roleId,
+                });
+                resolve({
+                    errCode: 0,
+                    message: "create new user success!"
+                });
             }
-            let passwordAfterHash = await hashUserPassword(data.password);
-            await db.User.create({
-                name: data.name,
-                email: data.email,
-                password: passwordAfterHash,
-                gender: data.gender === '1' ? true : false,
-                phoneNumber: data.phoneNumber,
-                address: data.address,
-            });
-            resolve({
-                errCode: 0,
-                message: "create new user success!"
-            });
         } catch (e) {
             reject(e);
         }
@@ -160,6 +164,7 @@ let editUser = (data) => {
                 user.address = data.address;
                 user.phoneNumber = data.phoneNumber;
                 user.gender = data.gender === '1' ? true : false;
+
 
                 await user.save();
                 resolve({
