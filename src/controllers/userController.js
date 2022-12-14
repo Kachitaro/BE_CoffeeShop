@@ -58,14 +58,18 @@ let handleEditUser = async (req, res) => {
 };
 
 let handleDeleteUser = async (req, res) => {
-    if (!req.query.id) {
+    console.log(req.body.id);
+    if (!req.body.id) {
         return res.status(200).json({
             errCode: 1,
             message: "Missing input parameters"
         });
     }
-    let message = await userServices.deleteUser(req.query.id);
-    return res.status(200).json({message: message});
+    let message = await userServices.deleteUser(req.body.id);
+    return res.status(200).json({
+        errCode: message.errCode,
+        message: message.message
+    });
 };
 
 

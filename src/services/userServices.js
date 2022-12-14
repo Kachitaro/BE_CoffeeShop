@@ -194,9 +194,15 @@ let deleteUser = (userId) => {
                 await db.User.destroy({
                     where: {id: userId},
                 });
-                resolve('delete user success');
+                resolve({
+                    errCode: 0,
+                    message: "delete user success"
+                });
             }
-            resolve('the user not found');
+            resolve({
+                errCode: 2,
+                message: "the user not found"
+            });
         } catch (e) {
             reject(e);
         }
@@ -211,5 +217,4 @@ module.exports = {
     //getUserInfoByID: getUserInfoByID,
     editUser: editUser,
     deleteUser: deleteUser,
-
 };
