@@ -24,6 +24,7 @@ let createNewUser = (data) => {
                     salary: data.salary,
                     position: data.position,
                     roleId: data.roleId,
+                    birthDate: data.birthDate,
                 });
                 resolve({
                     errCode: 0,
@@ -164,8 +165,8 @@ let editUser = (data) => {
                 user.address = data.address;
                 user.phoneNumber = data.phoneNumber;
                 user.gender = data.gender === '1' ? true : false;
-
-
+                user.salary = data.salary;
+                user.position = data.position;
                 await user.save();
                 resolve({
                     errCode: 0,
@@ -214,7 +215,6 @@ module.exports = {
     handleUserLogin: handleUserLogin,
     getAllUser: getAllUser,
     createNewUser: createNewUser,
-    //getUserInfoByID: getUserInfoByID,
     editUser: editUser,
     deleteUser: deleteUser,
 };
