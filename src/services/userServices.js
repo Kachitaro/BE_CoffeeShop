@@ -18,7 +18,7 @@ let createNewUser = (data) => {
                     name: data.name,
                     email: data.email,
                     password: passwordAfterHash,
-                    gender: data.gender === '1' ? true : false,
+                    gender: data.gender,
                     phoneNumber: data.phoneNumber,
                     address: data.address,
                     salary: data.salary,
