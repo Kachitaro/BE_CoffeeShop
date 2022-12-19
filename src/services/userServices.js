@@ -149,7 +149,7 @@ let getUserInfoByID = async (userId) => {
 let editUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.id) {
+            if (!data.id || !data.roleId || !data.position || !data.gender) {
                 resolve({
                     errCode: 2,
                     message: "missing required parameter"
@@ -164,8 +164,9 @@ let editUser = (data) => {
                 user.email = data.email;
                 user.address = data.address;
                 user.phoneNumber = data.phoneNumber;
-                user.gender = data.gender === '1' ? true : false;
-                user.salary = data.salary;
+                user.roleId = data.roleId;
+                user.gender = data.gender;
+                //user.salary = data.salary;
                 user.position = data.position;
                 await user.save();
                 resolve({
