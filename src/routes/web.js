@@ -13,7 +13,7 @@ let initWebRoutes = (app) => {
     router.post("/create-crud", homeController.postCRUD);
     router.post("/put-crud", homeController.putCRUD);
 
-    /aaaa
+    //aaaa
     router.post("/api/login", userController.handleLogin);
     router.get("/api/get-all-user", userController.handleGetAllUser);
     router.post("/api/create-new-user", userController.handleCreateNewUser);
